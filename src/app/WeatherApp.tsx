@@ -4,28 +4,25 @@ import Header from './Header';
 import CurrentWeather from './CurrentWeather';
 import TodayHourForecast from './TodayHourForecast';
 import Forecast from './Forecast';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import SearchCityDialog from './SearchCityDialog';
-import { getLocationWeather } from '@/lib/weatherAPI';
+import { getDefaultIPWeather, getLocationWeather } from '@/lib/weatherAPI';
 
 
-
-interface WeatherAppProps {
-    defaultWeather: {
-        location: { name: string; country: string; };
-        current: { temp_c: number; wind_kph: number; humidity: number; condition: { icon: string; text: string; } };
-        forecast: {
-            forecastday: {
-                hour: { time: string; temp_c: number; condition: { icon: string; } }[];
-                date: string; temp_c: number; day: { avgtemp_c: number; condition: { icon: string; }; };
-            }[];
-        };
-    };
-}
-
-export default function WeatherApp({ defaultWeather }: WeatherAppProps) {
+export default function WeatherApp() {
     const [openSearch, setOpenSearch] = useState(false);
-    const [weather, setWeather] = useState(defaultWeather);
+    const [weather, setWeather] = useState<any>();
+
+
+    const getDefaultWeather = async () => {
+        const defaultWeather = await getDefaultIPWeather();
+        setWeather(defaultWeather);
+    }
+
+    useEffect(() => {
+        getDefaultWeather();
+    }, []);
+
 
     const handleSearchOpen = useCallback(() => {
         if (typeof window != 'undefined' && window.document) {
@@ -47,7 +44,6 @@ export default function WeatherApp({ defaultWeather }: WeatherAppProps) {
     }
 
     if (weather) {
-        console.log(weather)
         const { location, current, forecast } = weather;
         const [today, ...future] = forecast.forecastday;
         const currentHour = new Date().getHours();

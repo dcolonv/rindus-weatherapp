@@ -1,15 +1,15 @@
 
-
+"use client"
+import { headers } from 'next/headers'
 import { getDefaultIPWeather } from '@/lib/weatherAPI';
 import styles from './page.module.css'
 import WeatherApp from './WeatherApp';
+import { useEffect } from 'react';
 
-export default async function Home() {
-  const weather = await getDefaultIPWeather();
-
+export default function Home() {
   return (
     <main className={styles.main}>
-      <WeatherApp defaultWeather={weather} />
+      <WeatherApp />
     </main>
   )
 }
