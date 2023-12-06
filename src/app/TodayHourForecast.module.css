@@ -1,0 +1,30 @@
+
+.today_forecast_grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 0.5rem;
+    margin-top: 2rem;
+  }
+  
+  .hour_forecast_card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 0;
+    gap: 0.5rem;
+    border-radius: 0.8rem;
+  }
+  
+  .hour_forecast_card p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 13px;
+    letter-spacing: 0em;
+    text-align: left;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  }
+  
+  .current_hour {
+    background: rgba(255, 255, 255, 0.30);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+  }
